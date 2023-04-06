@@ -1,6 +1,6 @@
 import profile from "../../public/profile.jpeg"
 import Image from "next/image"
-export default function Navbar({children}){
+export default function Navbar(){
     return (
         <div className="flex w-full items-center justify-center p-8">
             <div className="flex w-full rounded-2xl bg-base-300 items-center justify-around p-3">

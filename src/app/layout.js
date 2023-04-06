@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
       <body>
       <div className="drawer drawer-mobile bg-base-200">
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
-            <div className="drawer-content flex flex-col items-center justify-start"> 
+            <div className="drawer-content flex flex-col items-center justify-start gap-4"> 
                 <Navbar />
                 {children}
                 <label htmlFor="my-drawer-2" className="btn btn-primary drawer-button lg:hidden">Open drawer</label>
