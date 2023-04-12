@@ -21,7 +21,7 @@ module.exports = {
     rtl: false,
     prefix: "",
     darkTheme: "lofi",
-    themes: ["cyberpunk", "wireframe","lofi"],
+    themes: ["wireframe","lofi"],
   },
 }
 
