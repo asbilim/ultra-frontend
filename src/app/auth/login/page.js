@@ -1,12 +1,29 @@
 'use client'
 
 import { useForm } from "react-hook-form"
+import { encrypt } from "@/functions/crypto"
 
 export default function Login(){
 
     const {register,handleSubmit,formState:{errors}} = useForm()
 
-    const onsubmit = data =>console.log(data)
+    const onsubmit = data => {
+        fetch('http://localhost:8000/auth2/api/token/',{
+            method:"POST",
+            headers:{
+                "Content-type":"application/json"
+            },
+            body:JSON.stringify(data)
+        })
+        .then(answer=>answer.json())
+        .then(response=>{
+            if (response.access && response.refresh){
+                localStorage.setItem("token",encrypt(response))
+                document.cookie = `JSSESSIONID=${encrypt(response)}`
+                return document.location.assign('/')
+            }
+        })
+    }
 
     return(
         <div className="hero min-h-screen bg-base-200">
@@ -14,12 +31,12 @@ export default function Login(){
         <form className="card-body" onSubmit={handleSubmit(onsubmit)}>
             <div className="form-control">
                 <label className="label">
-                    <span className="label-text">Email</span>
+                    <span className="label-text">Username</span>
                 </label>
-                <input type="text" placeholder="email" className="input input-bordered" {...register("email",{required:"please enter your email address",pattern:{value:"/^([a-zA-Z0-9._%+-]+)@([a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/",message:"please enter a valid email"}})} />
+                    <input type="text" placeholder="type username" className="input input-bordered" {...register("username",{required:"Username is required"})} />
                 <label className="label">
-                <p className="text-error">{errors.email?.message}</p>
-            </label>
+                    <p className="text-error">{errors.username?.message}</p>
+                </label>
             </div>
             <div className="form-control">
                 <label className="label">

@@ -5,7 +5,17 @@ import { useForm } from "react-hook-form"
 export default function Register(){
 
     const {register,handleSubmit,formState:{errors},watch} = useForm() 
-    onsubmit = data => console.log(data)
+    const onsubmit = data => {
+        fetch('http://localhost:8000/auth2/account/register/',{
+            method:"POST",
+            headers:{
+                "Content-type":"application/json"
+            },
+            body:JSON.stringify(data)
+        })
+        .then(answer=>answer.json())
+        .then(response=>console.log(response))
+    }
 
     return(
         <div className="hero min-h-screen bg-base-200">
@@ -57,7 +67,7 @@ export default function Register(){
                     errors.username || errors.email || errors.password || errors.confirm ? (
                         <button className="btn btn-primary" disabled>Create an account</button>
                     ):(
-                        <button className="btn btn-primary">Create an account</button>
+                        <button type="submit" className="btn btn-primary">Create an account</button>
                     )
                 }
             </div>

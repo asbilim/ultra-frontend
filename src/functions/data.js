@@ -1,0 +1,22 @@
+export const services = [
+    { name: "Facebook" },
+    { name: "Twitter" },
+    { name: "Instagram" },
+    { name: "LinkedIn" },
+    { name: "YouTube" },
+    { name: "Reddit" },
+    { name: "Pinterest" },
+    { name: "TikTok" },
+    { name: "Netflix" },
+    { name: "Amazon" },
+    { name: "Google" },
+    { name: "WhatsApp" },
+    { name: "Zoom" },
+    { name: "Slack" },
+    { name: "Uber" },
+    { name: "Airbnb" },
+    { name: "Github" },
+    { name: "Dropbox" },
+    { name: "Microsoft" },
+    { name: "Apple" }
+  ];

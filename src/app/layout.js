@@ -3,6 +3,7 @@ import {AiFillLock,AiFillTool,AiFillBook,AiFillMessage,AiOutlineLogin} from "rea
 import {RiLoginCircleFill} from "react-icons/ri"
 import Link from 'next/link'
 import Navbar from '@/components/navbar'
+import { Roboto } from 'next/font/google'
 
 
 
@@ -11,11 +12,15 @@ export const metadata = {
   description: 'Ultra is a powerful penetration testing tool designed to help security professionals identify and exploit vulnerabilities in web applications. With its intuitive user interface and advanced features, Ultra makes it easy to perform comprehensive security assessments and improve the overall security posture of your organization.',
 }
 
+const inter = Roboto({ subsets: ['latin'],weight:['100','300','400','500','700','900'] })
+
 export default function RootLayout({ children }) {
+
+  
   return (
     <html lang="en">
       <body>
-      <div className="drawer drawer-mobile bg-base-200">
+      <div className={"drawer drawer-mobile bg-base-200 "+inter.className}>
             <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content flex flex-col items-center justify-center gap-4"> 
                 {children}
@@ -24,7 +29,7 @@ export default function RootLayout({ children }) {
             <div className="drawer-side">
                 <label htmlFor="my-drawer-2" className="drawer-overlay"></label> 
                 <ul className="menu p-6 pt-8 w-80 bg-base-100 text-base-content h-screen relative overflow-hidden">
-                  <h2 className='w-full text-start font-semibold text-2xl my-4'>Ultra PenTest</h2>
+                  {/* <h2 className='w-full text-start font-semibold text-2xl my-4'>Ultra PenTest</h2> */}
                   <li className='bg-base-300 my-2'><Link href=""><AiFillLock /> Password Manager</Link></li>
                   <li className='my-2'><Link href="/tools"><AiFillTool/> Tools</Link></li>
                   <li className='my-2'><Link href="/tutorials"><AiFillBook />Tutorials</Link></li>

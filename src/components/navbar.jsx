@@ -1,8 +1,13 @@
+"use client"
+
 import profile from "../../public/profile.jpeg"
 import Image from "next/image"
+import { deleteAllCookies } from "@/functions/auth"
+
 export default function Navbar(){
+
     return (
-        <div className="flex items-center justify-start">
+        <div className="flex items-center justify-start gap-2 py-4">
             <div className="flex w-full rounded-2xl items-center justify-around p-3">
                 <div className="dropdown dropdown-top">
                     <label tabIndex={0} className="cursor-pointer">
@@ -13,7 +18,7 @@ export default function Navbar(){
                         </div>
                     </label>
                     <ul tabIndex={0} className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-                        <li><a>Logout</a></li>
+                        <li onClick={deleteAllCookies}><a>Logout</a></li>
                     </ul>
                 </div>
             </div>

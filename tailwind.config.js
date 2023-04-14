@@ -20,8 +20,8 @@ module.exports = {
     logs: true,
     rtl: false,
     prefix: "",
-    darkTheme: "lofi",
-    themes: ["wireframe","lofi"],
+    darkTheme: "dark",
+    themes: ["light","wireframe","lofi","dark"],
   },
 }
 
