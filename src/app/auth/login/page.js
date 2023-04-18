@@ -19,9 +19,10 @@ export default function Login(){
         .then(response=>{
             if (response.access && response.refresh){
                 localStorage.setItem("token",encrypt(response))
-                document.cookie = `JSSESSIONID=${encrypt(response)}`
+                document.cookie = `JSSESSIONID=${encrypt(response)};path=/;secure`
                 return document.location.assign('/')
             }
+            
         })
     }
 

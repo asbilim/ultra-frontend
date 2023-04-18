@@ -34,3 +34,9 @@ export function generateRandomString(length) {
     
     return result;
 }
+
+export function addToClipboard(text) {
+    navigator.clipboard.writeText(text)
+      .then(() => console.log('Text added to clipboard'))
+      .catch((err) => console.error('Error adding text to clipboard:', err));
+  }

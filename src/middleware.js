@@ -1,5 +1,5 @@
 import { NextResponse,NextRequest } from "next/server";
-import { decrypt } from "./functions/crypto";
+import { decrypt,encrypt } from "./functions/crypto";
 import { isTokenExpired } from "./functions/auth";
 
 export function middleware(NextRequest) {
@@ -22,9 +22,9 @@ export function middleware(NextRequest) {
     } else if (NextRequest.nextUrl.pathname.startsWith('/manager')) {
         
       if (!NextRequest.cookies.has('JSSESSIONID')) {
+        console.log(NextRequest.cookies)
         return NextResponse.redirect('http://localhost:3000/auth/login', NextRequest.url);
       }
-
       
     }
   
@@ -33,5 +33,5 @@ export function middleware(NextRequest) {
   
 
 export const config = {
-    matcher: '/auth/:path*'
+    matcher: '/(auth|manager)/:path*'
 }
