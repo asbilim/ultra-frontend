@@ -14,7 +14,11 @@ export default function Register(){
             body:JSON.stringify(data)
         })
         .then(answer=>answer.json())
-        .then(response=>console.log(response))
+        .then(response=>{
+            if (response.status == "success"){
+                return document.location.assign("/")
+            }
+        })
     }
 
     return(

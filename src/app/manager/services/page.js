@@ -63,29 +63,35 @@ export default function Main() {
 
   const {register,handleSubmit,formState:{errors},watch} = useForm()
  
-  const onsubmit = data =>{
-     
-    //  try{
-    //    const access = JSON.parse(decrypt(getCookie("JSSESSIONID"))).access
-    //    fetch("http://localhost:8000/auth2/account/register/change/",{
-    //      method:"POST",
-    //      headers:{
-    //        "Content-type":"application/json",
-    //        "Authorization":"Bearer "+access
-    //      },
-    //      body:JSON.stringify(data)
-    //    })
-    //    .then(answer=>answer.json())
-    //    .then(response=>console.log(response))
-    //  }
- 
-    //  catch{
-    //    return document.location = "http://localhost:3000/auth/login"
-    //  }
+  const onsubmit = (data) => {
+    const token = JSON.parse(decrypt(getCookie("JSSESSIONID"))).access;
+    fetch(`http://localhost:8000/api/manager/service/`, {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + token,
+        "Content-type": "Application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((answer) => answer.json())
+      .then((response) => {
+        if (response.success) {
+          alert("service added successfully");
+          setServices((services) => {
 
-    console.log(data)
- 
-   }
+            const updatedServices = services.concat([{ id: response.id, service_name: response.service }]);
+    
+            console.log(updatedServices); // This will log the updated state
+    
+            return updatedServices;
+    
+          });
+          console.log(services); // This will log the updated state
+        } else {
+          alert("an error occur");
+        }
+      });
+  };
    
    
    const manageModal = ()=>{

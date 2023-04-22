@@ -1,4 +1,5 @@
 import Tool from "@/components/tool"
+import { ToolsData } from "@/components/datas/tools"
 import { nanoid } from "nanoid"
 export default function Home(){
     return (
@@ -8,9 +9,9 @@ export default function Home(){
             </div>
             <div className="grid grid-cols-4 gap-8 py-16 w-full px-8">
                 {
-                    [1,2,3,4,5,6,7,8].map(item=>{
+                    ToolsData.map(item=>{
                         return (
-                            <Tool key={nanoid()} />
+                            <Tool key={nanoid()} {...item} />
                         )
                     })
                 }
