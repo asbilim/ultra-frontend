@@ -6,24 +6,44 @@ import {VscDebugStart} from "react-icons/vsc"
 import { nmapScanTypes,nmapServiceDetectionOptions,nmapVerbosityOptions } from "@/components/datas/nmap"
 import { nanoid } from "nanoid"
 import { useState } from "react"
-import { SingleLine,SuccessLine,ErrorLine } from "@/components/singlecommand"
+import { useRef } from "react"
 
 export default function Tool({params:{tools}}){
+
+  const outputRef= useRef(0)
 
   
   const sendCommand = (command) => {
     const server = new WebSocket("ws://localhost:8000/ws/enumeration/");
   
     server.onopen = (event) => {
-      console.log("WebSocket connection established.");
+      const output = document.createElement('p');
+      output.textContent = "Starting nmap....";
+      outputRef.current.appendChild(output);
       server.send(command);
     };
   
     server.onclose = (event) => {
-      console.log(`WebSocket closed for the following reason: ${event.error}`);
+      const output = document.createElement('p');
+      output.classList.add('text-error')
+      output.textContent = "websocket closed !!";
+      outputRef.current.appendChild(output);
     };
   
     server.onmessage = (event) => {
+      if (event.data){
+        const newData = JSON.parse(event.data)
+        if(newData.error){
+          const output = document.createElement('p');
+          output.classList.add('text-error')
+          output.textContent = newData.error;
+          outputRef.current.appendChild(output);
+        }
+        const output = document.createElement('p');
+        output.classList.add('text-success')
+        output.textContent = newData.output;
+        outputRef.current.appendChild(output);
+      }
       console.log(`Incoming message from the backend server: ${event.data}`);
     };
   };
@@ -104,34 +124,13 @@ const handleScanTypeClick = (index) => {
             <div className="introduction flex w-full items-center justify-start">
                 <p className="text-lg font-bold">Welcome to {tools}</p>
             </div>
-            <Window>
-              <div className="line flex gap-2 w-full">
-                <span className="text-success">$</span>
-                <p>nmap {payload}</p>
+            <div className="mockup-window border bg-base-300 w-full min-h-[60vh] overflow-y-auto line">
+              <div className="content w-full h-full flex flex-col items-start justify-start p-4 gap-3 mb-4" ref={outputRef}>
+                <div className="line flex gap-2 w-full">
+                  <span className="text-success">$</span>
+                  <p>nmap {payload}</p>
+                </div>
               </div>
-              <div className="line flex gap-2 w-full">
-                <p>{output}</p>
-              </div>
-            </Window>
-            <h2 className="text-lg">Scan types</h2>
-            <div className="commands grid grid-cols-4 w-full p-4 gap-4">
-                {
-                    scanTypes.map((item,index)=>{
-                        return (
-                        <Command  {...item} key={nanoid()} onClick={()=>handleScanTypeClick(index)} />
-                        )
-                    })
-                }
-            </div>
-            <h2 className="text-lg">Service detection</h2>
-            <div className="commands grid grid-cols-4 w-full p-4 gap-4">
-                {
-                    serviceDetectionOptions.map((item,index)=>{
-                        return (
-                        <Command  {...item} key={nanoid()} onClick={()=>handleServiceDetectionOptionClick(index)} />
-                        )
-                    })
-                }
             </div>
             <h2 className="text-lg">Verbosity</h2>
             <div className="commands grid grid-cols-4 w-full p-4 gap-4">
@@ -146,7 +145,7 @@ const handleScanTypeClick = (index) => {
             <div className="form-control w-full p-4">
                 <div className="input-group w-full">
                     <input type="text" placeholder="Enter the ip address " className="input input-bordered w-full" onChange={(e)=>{setPayload(getSelectedPayload()+" "+e.target.value)}} />
-                    <button className="btn btn-square" onClick={()=>{sendCommand(payload);setPayload(payload=>"")}}>
+                    <button className="btn btn-square" onClick={()=>{sendCommand(payload)}}>
                         <VscDebugStart />
                     </button>
                 </div>

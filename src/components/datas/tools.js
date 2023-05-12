@@ -1,5 +1,6 @@
 import nmap from "../../../public/nmap.png"
 import hydra from "../../../public/hydra.png"
+import dork from "../../../public/dork.png"
 
 export const ToolsData = [
     {
@@ -16,4 +17,12 @@ export const ToolsData = [
         "description": "Hydra is a parallelized login cracker which supports numerous protocols to attack. It is very fast and flexible, and new modules are easy to add.",
         "warning": "Please use Hydra responsibly and with the appropriate permissions. Attempting to crack passwords without the owner's permission is illegal and may result in legal consequences."
     },
+    {
+        "name": "DorkMan",
+        "image": dork.src,
+        "url":"dork",
+        "description": "DorkMan is an easy to use tool that can generate google dorks to reduce the time of research by including keywords that will make the research more easy.",
+        "warning": "Please use  DorkMan responsibly and with the appropriate permissions. Attempting to crack passwords without the owner's permission is illegal and may result in legal consequences."
+    },
+
 ]

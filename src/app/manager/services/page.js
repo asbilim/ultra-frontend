@@ -111,7 +111,7 @@ export default function Main() {
               <label className="label">
                 <span className="label-text text-lg font-semibold">Service Name</span>
               </label>
-              <input type="text" placeholder="Instagram" className="input input-bordered w-full" {...register("service",{required:"please enter a service name",minLength:{value:8,message:"service name too short"}})} />
+              <input type="text" placeholder="Instagram" className="input input-bordered w-full" {...register("service",{required:"please enlster a service name",minLength:{value:8,message:"service name too short"}})} />
               <label className="label">
                 <span className="label-text-alt text-error text-lg">{errors.service?.message}</span>
               </label>
